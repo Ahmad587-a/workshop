@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0f6b6b">
+<title>Workshop</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#eceff1;--card:#fff;--ink:#17252d;--mute:#5d6c75;--line:#d5dbdf;--stitch:#9aa9b1;--acc:#0f6b6b;--acc-ink:#fff;--todo:#5d6c75;--doing:#a86a00;--done:#1f7a4d;--prob:#b3321f;--tint:#f6f8f9;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#11191e;--card:#1b262d;--ink:#e8eef1;--mute:#9db0ba;--line:#2e3d46;--stitch:#587080;--acc:#3fb5b0;--acc-ink:#07201f;--todo:#9db0ba;--doing:#e0a33a;--done:#4cc08a;--prob:#f07a66;--tint:#162127;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#11191e;--card:#1b262d;--ink:#e8eef1;--mute:#9db0ba;--line:#2e3d46;--stitch:#587080;--acc:#3fb5b0;--acc-ink:#07201f;--todo:#9db0ba;--doing:#e0a33a;--done:#4cc08a;--prob:#f07a66;--tint:#162127;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:'Tajawal',Tahoma,Arial,sans-serif;font-size:16px;line-height:1.55}
+main{max-width:720px;margin:0 auto;padding:16px 14px 48px}
+.top{display:flex;align-items:center;justify-content:space-between;gap:10px}
+h1{font-size:24px;font-weight:800;margin:6px 0 2px}
+h2{font-size:18px;font-weight:700;margin:0 0 10px}
+.date{color:var(--mute);margin:0 0 14px}
+#lang{width:auto;max-width:48%;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:99px;padding:8px 16px;font:inherit;font-weight:700;cursor:pointer;white-space:nowrap}
+.tabs{display:flex;gap:6px;margin-bottom:14px}
+.tabs button{flex:1;padding:11px;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:10px;font:inherit;font-weight:700;cursor:pointer}
+.tabs button[aria-selected="true"]{background:var(--acc);color:var(--acc-ink);border-color:var(--acc)}
+.card{background:var(--card);border-radius:12px;padding:16px;margin-bottom:14px;outline:1.5px dashed var(--stitch);outline-offset:-6px}
+label{display:block;font-weight:500;color:var(--mute);margin:10px 0 4px;font-size:14px}
+input,select,textarea{width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:9px;background:var(--tint);color:var(--ink);font:inherit}
+textarea{resize:vertical;min-height:60px}
+button.main{margin-top:14px;width:100%;padding:13px;border:0;border-radius:10px;background:var(--acc);color:var(--acc-ink);font:inherit;font-weight:800;cursor:pointer}
+button.main:disabled{opacity:.6}
+button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+.row{display:flex;gap:8px}.row>*{flex:1}.row>button{flex:0 0 auto}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.chip{display:inline-flex;align-items:center;gap:6px;background:var(--tint);border:1px solid var(--line);border-radius:99px;padding:4px 12px}
+.chip button{border:0;background:none;color:var(--mute);font-size:18px;cursor:pointer;line-height:1}
+.task{border:1px solid var(--line);border-inline-start:6px solid var(--todo);border-radius:10px;padding:12px 14px;margin-bottom:10px;background:var(--card)}
+.task.doing{border-inline-start-color:var(--doing)}.task.done{border-inline-start-color:var(--done)}.task.problem{border-inline-start-color:var(--prob)}
+.task .t{font-weight:800;font-size:17px}.task .car{color:var(--mute)}
+.badge{display:inline-block;font-size:13px;font-weight:700;padding:2px 10px;border-radius:99px;border:1px solid currentColor;color:var(--todo)}
+.badge.doing{color:var(--doing)}.badge.done{color:var(--done)}.badge.problem{color:var(--prob)}
+.note{margin:6px 0 0;padding:8px 10px;background:var(--tint);border-radius:8px;font-size:15px}
+.note.p{color:var(--prob)}
+.pic{display:block;width:100%;max-height:280px;object-fit:cover;border-radius:8px;margin-top:8px}
+.acts{display:flex;gap:8px;margin-top:10px}
+.acts button{flex:1;padding:12px 6px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--ink);font:inherit;font-weight:800;cursor:pointer}
+.acts .go{background:var(--doing);color:#fff;border-color:var(--doing)}.acts .ok{background:var(--done);color:#fff;border-color:var(--done)}.acts .bad{color:var(--prob);border-color:var(--prob)}
+.del{border:0;background:none;color:var(--mute);cursor:pointer;font:inherit;font-size:14px;padding:4px 0}
+.sum{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:12px 0;text-align:center}
+.sum div{background:var(--tint);border-radius:9px;padding:8px 2px;font-size:13px;color:var(--mute)}.sum b{display:block;font-size:20px;color:var(--ink)}
+.empty{color:var(--mute);text-align:center;padding:18px 8px}
+.who{margin:16px 0 8px;font-weight:800;font-size:17px}
+#toast{position:fixed;inset-inline:14px;bottom:calc(14px + env(safe-area-inset-bottom,0px));background:var(--ink);color:var(--bg);padding:12px 14px;border-radius:10px;display:none;z-index:9}
+#outB{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:99px;padding:8px 14px;font:inherit;font-weight:700;cursor:pointer;white-space:nowrap}
+.rowtop{display:flex;gap:8px;align-items:center}
+</style>
+</head>
+<body>
+<main>
+<div class="top"><h1 data-t="title"></h1><div class="rowtop"><select id="lang" aria-label="Language"></select><button id="outB" type="button" hidden data-t="signOut"></button></div></div>
+<p class="date" id="today"></p>
+<div id="msg" class="empty" hidden></div>
+<section id="login" class="card" hidden>
+  <label for="lid" data-t="idLbl"></label>
+  <input id="lid" autocomplete="username" autocapitalize="none" spellcheck="false">
+  <label for="lpw" data-t="secret"></label>
+  <input id="lpw" type="password" autocomplete="current-password">
+  <p id="lerr" class="note p" hidden></p>
+  <button class="main" id="loginB" data-t="signIn"></button>
+</section>
+<div id="app" hidden>
+  <div class="tabs" role="tablist" id="tabs" hidden>
+    <button role="tab" id="tabM" aria-selected="true" data-t="mgr"></button>
+    <button role="tab" id="tabW" aria-selected="false" data-t="wrk"></button>
+  </div>
+  <section id="vM">
+    <div class="card"><h2 data-t="shareH"></h2><p class="date" data-t="shareP" style="margin:0"></p><button class="main" id="shareB" data-t="shareB"></button></div>
+    <div class="card">
+      <h2 data-t="workers"></h2>
+      <label for="wName" data-t="wname"></label><input id="wName" autocomplete="off">
+      <label for="wUser" data-t="uname"></label><input id="wUser" autocomplete="off" autocapitalize="none" spellcheck="false">
+      <label for="wPin" data-t="pinL"></label><input id="wPin" autocomplete="off">
+      <button class="main" id="addW" data-t="add"></button>
+      <div class="chips" id="wList"></div>
+    </div>
+    <div class="card">
+      <h2 data-t="newT"></h2>
+      <label for="car" data-t="car"></label><input id="car" data-tp="carP">
+      <label for="title" data-t="task"></label><input id="title" list="lib" data-tp="taskP"><datalist id="lib"></datalist>
+      <label for="wSel" data-t="worker"></label><select id="wSel"></select>
+      <label for="tDate" data-t="day"></label><input type="date" id="tDate">
+      <label for="tNote" data-t="notes"></label><textarea id="tNote" data-tp="notesP"></textarea>
+      <label for="tImg" data-t="photo"></label><input type="file" id="tImg" accept="image/*">
+      <button class="main" id="addT" data-t="addT"></button>
+    </div>
+    <div class="card">
+      <h2 data-t="tasksOf"></h2>
+      <input type="date" id="fDate">
+      <div class="sum" id="sum"></div>
+      <div id="mTasks"></div>
+    </div>
+  </section>
+  <section id="vW" hidden>
+    <div class="card" id="meCard"><label for="me" style="margin-top:0" data-t="me"></label><select id="me"></select></div>
+    <div id="wTasks"></div>
+  </section>
+</div>
+<div id="toast" role="status"></div>
+</main>
+<script type="module">
+import {initializeApp} from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
+import {getAuth,onAuthStateChanged,signInWithEmailAndPassword,signOut,createUserWithEmailAndPassword} from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
+import {initializeFirestore,persistentLocalCache,collection,doc,addDoc,setDoc,updateDoc,deleteDoc,onSnapshot,query,where} from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
+var firebaseConfig={
+  apiKey:"AIzaSyBxysbE-ttQbynVUgtjcr-dg42WmY_HAA0",
+  authDomain:"workshop-dc4d5.firebaseapp.com",
+  projectId:"workshop-dc4d5",
+  storageBucket:"workshop-dc4d5.firebasestorage.app",
+  messagingSenderId:"871621354576",
+  appId:"1:871621354576:web:2e5df7147ea278ddb81d55"
+};
+var managerEmail="admin@workshop.local";
+
+var $=function(s){return document.querySelector(s)};
+var D={
+ar:{title:'مهام الورشة اليومية',mgr:'لوحة المدير',wrk:'شاشة العامل',workers:'العمال',wname:'اسم العامل',add:'إضافة',noW:'لا يوجد عمال بعد. أضف أول عامل.',newT:'مهمة جديدة',car:'السيارة',carP:'مثال: تويوتا لاند كروزر 2022 - أبيض',task:'المهمة',taskP:'اختر من القائمة أو اكتب',worker:'العامل',addFirst:'أضف عاملاً أولاً',day:'اليوم',notes:'ملاحظات للعامل (اختياري)',notesP:'مثال: جلد بني، خيط أسود',photo:'صورة (اختياري)',addT:'إضافة المهمة',tasksOf:'مهام يوم',none:'لا توجد مهام في هذا اليوم.',noWorker:'بدون عامل',me:'أنا',pickMe:'اختر اسمك',pickMeMsg:'اختر اسمك لتظهر لك مهام اليوم.',noMine:'لا توجد مهام لك اليوم. 👌',carry:'مهمة غير منتهية من',late:'متأخرة',problemL:'المشكلة: ',todo:'بانتظار البدء',doing:'قيد التنفيذ',done:'تم',problem:'مشكلة',start:'ابدأ',finish:'تم',prob:'مشكلة',undo:'تراجع',delT:'حذف المهمة',confW:'حذف هذا العامل؟',confT:'حذف هذه المهمة؟',probQ:'ما هي المشكلة؟ (مثال: الجلد غير متوفر)',fillAll:'أكمل السيارة والمهمة والعامل واليوم.',added:'تمت إضافة المهمة',saveFail:'تعذّر الحفظ. تأكد أن لديك صلاحية المشاركة (مساهم) أو أعد المحاولة.',imgFail:'تعذّر رفع الصورة أو الحفظ. أعد المحاولة.',loading:'جارٍ التحميل...',login:'سجّل الدخول إلى حسابك على Claude ثم افتح الرابط مرة أخرى لعرض المهام.',loadFail:'تعذّر تحميل البيانات. أعد فتح الصفحة.',pic:'صورة المهمة',shareH:'مشاركة مع العمال',shareP:'أرسل الرابط للعامل، ثم من زر المشاركة في Claude اجعل صلاحيته مساهم (Contributor) ليتمكن من تحديث حالة المهام.',shareB:'مشاركة الرابط',copied:'تم نسخ الرابط',askLang:'اكتب اسم اللغة التي تريدها (مثال: اردو، বাংলা، Français)',translating:'جارٍ ترجمة التطبيق...',moreLang:'لغة أخرى...',transFail:'تعذّرت الترجمة. أعد المحاولة.',other:'English'},
+en:{title:'Daily Workshop Tasks',mgr:'Manager',wrk:'Worker',workers:'Workers',wname:'Worker name',add:'Add',noW:'No workers yet. Add the first one.',newT:'New task',car:'Car',carP:'e.g. Toyota Land Cruiser 2022 - white',task:'Task',taskP:'Pick from the list or type',worker:'Worker',addFirst:'Add a worker first',day:'Day',notes:'Notes for the worker (optional)',notesP:'e.g. brown leather, black thread',photo:'Photo (optional)',addT:'Add task',tasksOf:'Tasks for the day',none:'No tasks for this day.',noWorker:'No worker',me:'I am',pickMe:'Choose your name',pickMeMsg:'Choose your name to see today’s tasks.',noMine:'You have no tasks today. 👌',carry:'Unfinished task from',late:'Late',problemL:'Problem: ',todo:'Not started',doing:'In progress',done:'Done',problem:'Problem',start:'Start',finish:'Done',prob:'Problem',undo:'Undo',delT:'Delete task',confW:'Delete this worker?',confT:'Delete this task?',probQ:'What is the problem? (e.g. leather not available)',fillAll:'Fill in the car, task, worker and day.',added:'Task added',saveFail:'Could not save. Make sure you have Contributor access, or try again.',imgFail:'Could not upload the photo or save. Try again.',loading:'Loading...',login:'Sign in to your Claude account, then open the link again to see the tasks.',loadFail:'Could not load the data. Reopen the page.',pic:'Task photo',shareH:'Share with workers',shareP:'Send the link to the worker, then in Claude’s Share menu set their access to Contributor so they can update task status.',shareB:'Share link',copied:'Link copied',askLang:'Type the name of the language you want (e.g. Urdu, Bengali, Français)',translating:'Translating the app...',moreLang:'Other language...',transFail:'Translation failed. Try again.',other:'العربية'}};
+var LIB={
+ar:['فك المقاعد','تركيب المقاعد','تنجيد المقاعد بالجلد','خياطة المقاعد','تنجيد السقف','تنجيد الأبواب','تغليف الطبلون','تنجيد المقود','تركيب سجاد الأرضية','تركيب إضاءة داخلية','عزل صوتي وحراري','تنظيف وتلميع الداخلية','فحص نهائي وتسليم'],
+en:['Remove seats','Install seats','Upholster seats in leather','Stitch seats','Upholster headliner','Upholster door panels','Wrap dashboard','Wrap steering wheel','Install floor carpet','Install interior lighting','Sound and heat insulation','Interior cleaning and polishing','Final inspection and handover']};
+
+var RTL={ar:true,en:false,hi:false,ur:true},CODE={ar:'ar',en:'en-GB',hi:'hi',ur:'ur-PK'};
+D.hi={title:'वर्कशॉप के रोज़ के काम',mgr:'मैनेजर',wrk:'कर्मचारी स्क्रीन',workers:'कर्मचारी',wname:'कर्मचारी का नाम',add:'जोड़ें',noW:'अभी कोई कर्मचारी नहीं है। पहला कर्मचारी जोड़ें।',newT:'नया काम',car:'गाड़ी',carP:'जैसे: टोयोटा लैंड क्रूज़र 2022 - सफ़ेद',task:'काम',taskP:'सूची से चुनें या लिखें',worker:'कर्मचारी',addFirst:'पहले कर्मचारी जोड़ें',day:'दिन',notes:'कर्मचारी के लिए नोट (वैकल्पिक)',notesP:'जैसे: भूरा चमड़ा, काला धागा',photo:'फ़ोटो (वैकल्पिक)',addT:'काम जोड़ें',tasksOf:'इस दिन के काम',none:'इस दिन कोई काम नहीं है।',noWorker:'कोई कर्मचारी नहीं',me:'मैं हूँ',pickMe:'अपना नाम चुनें',pickMeMsg:'आज के काम देखने के लिए अपना नाम चुनें।',noMine:'आज आपके लिए कोई काम नहीं है। 👌',carry:'अधूरा काम, तारीख़',late:'देरी',problemL:'समस्या: ',todo:'शुरू नहीं हुआ',doing:'चल रहा है',done:'पूरा हुआ',problem:'समस्या',start:'शुरू करें',finish:'पूरा हुआ',prob:'समस्या',undo:'वापस करें',delT:'काम हटाएँ',confW:'इस कर्मचारी को हटाएँ?',confT:'इस काम को हटाएँ?',probQ:'समस्या क्या है? (जैसे: चमड़ा उपलब्ध नहीं है)',fillAll:'गाड़ी, काम, कर्मचारी और दिन भरें।',added:'काम जोड़ दिया गया',saveFail:'सेव नहीं हो सका। जाँचें कि आपके पास Contributor अनुमति है, या दोबारा कोशिश करें।',imgFail:'फ़ोटो अपलोड या सेव नहीं हो सकी। दोबारा कोशिश करें।',loading:'लोड हो रहा है...',login:'अपने Claude अकाउंट में साइन इन करें, फिर काम देखने के लिए लिंक दोबारा खोलें।',loadFail:'डेटा लोड नहीं हो सका। पेज दोबारा खोलें।',pic:'काम की फ़ोटो',shareH:'कर्मचारियों के साथ शेयर करें',shareP:'कर्मचारी को लिंक भेजें, फिर Claude के Share मेनू में उसकी अनुमति Contributor करें ताकि वह काम की स्थिति बदल सके।',shareB:'लिंक शेयर करें',copied:'लिंक कॉपी हो गया'};
+D.ur={title:'ورکشاپ کے روزانہ کام',mgr:'مینیجر',wrk:'ورکر اسکرین',workers:'ورکرز',wname:'ورکر کا نام',add:'شامل کریں',noW:'ابھی کوئی ورکر نہیں ہے۔ پہلا ورکر شامل کریں۔',newT:'نیا کام',car:'گاڑی',carP:'مثلاً: ٹویوٹا لینڈ کروزر 2022 - سفید',task:'کام',taskP:'فہرست سے چنیں یا لکھیں',worker:'ورکر',addFirst:'پہلے ورکر شامل کریں',day:'دن',notes:'ورکر کے لیے نوٹ (اختیاری)',notesP:'مثلاً: بھورا چمڑا، کالا دھاگا',photo:'تصویر (اختیاری)',addT:'کام شامل کریں',tasksOf:'اس دن کے کام',none:'اس دن کوئی کام نہیں ہے۔',noWorker:'کوئی ورکر نہیں',me:'میں ہوں',pickMe:'اپنا نام چنیں',pickMeMsg:'آج کے کام دیکھنے کے لیے اپنا نام چنیں۔',noMine:'آج آپ کے لیے کوئی کام نہیں ہے۔ 👌',carry:'نامکمل کام، تاریخ',late:'تاخیر',problemL:'مسئلہ: ',todo:'شروع نہیں ہوا',doing:'جاری ہے',done:'مکمل',problem:'مسئلہ',start:'شروع کریں',finish:'مکمل',prob:'مسئلہ',undo:'واپس',delT:'کام حذف کریں',confW:'اس ورکر کو حذف کریں؟',confT:'اس کام کو حذف کریں؟',probQ:'مسئلہ کیا ہے؟ (مثلاً: چمڑا دستیاب نہیں)',fillAll:'گاڑی، کام، ورکر اور دن مکمل کریں۔',added:'کام شامل ہو گیا',saveFail:'محفوظ نہیں ہو سکا۔ دیکھیں کہ آپ کے پاس Contributor اجازت ہے، یا دوبارہ کوشش کریں۔',imgFail:'تصویر اپ لوڈ یا محفوظ نہیں ہو سکی۔ دوبارہ کوشش کریں۔',loading:'لوڈ ہو رہا ہے...',login:'اپنے Claude اکاؤنٹ میں سائن اِن کریں، پھر کام دیکھنے کے لیے لنک دوبارہ کھولیں۔',loadFail:'ڈیٹا لوڈ نہیں ہو سکا۔ صفحہ دوبارہ کھولیں۔',pic:'کام کی تصویر',shareH:'ورکرز کے ساتھ شیئر کریں',shareP:'ورکر کو لنک بھیجیں، پھر Claude کے Share مینو میں اس کی اجازت Contributor کریں تاکہ وہ کام کی حالت بدل سکے۔',shareB:'لنک شیئر کریں',copied:'لنک کاپی ہو گیا'};
+LIB.hi=['सीटें निकालना','सीटें लगाना','सीटों पर चमड़ा चढ़ाना','सीटों की सिलाई','छत (हेडलाइनर) की अपहोल्स्ट्री','दरवाज़ों की अपहोल्स्ट्री','डैशबोर्ड रैप करना','स्टीयरिंग व्हील रैप करना','फ़र्श का कालीन लगाना','अंदर की लाइटिंग लगाना','साउंड और हीट इंसुलेशन','इंटीरियर की सफ़ाई और पॉलिश','अंतिम जाँच और डिलीवरी'];
+LIB.ur=['سیٹیں اتارنا','سیٹیں لگانا','سیٹوں پر چمڑا چڑھانا','سیٹوں کی سلائی','چھت (ہیڈ لائنر) کی اپ ہولسٹری','دروازوں کی اپ ہولسٹری','ڈیش بورڈ ریپ کرنا','اسٹیئرنگ ویل ریپ کرنا','فرش کا قالین لگانا','اندرونی لائٹنگ لگانا','ساؤنڈ اور ہیٹ انسولیشن','انٹیریئر کی صفائی اور پالش','حتمی معائنہ اور حوالگی'];
+
+var X={
+ar:{signIn:'دخول',signOut:'خروج',idLbl:'اسم المستخدم',secret:'كلمة المرور',wrongLogin:'بيانات الدخول غير صحيحة.',uname:'اسم المستخدم (بالإنجليزية)',pinL:'كلمة المرور (6 أحرف أو أرقام على الأقل)',weakPin:'كلمة المرور قصيرة (6 على الأقل).',userTaken:'اسم المستخدم مستخدم من قبل.',userBad:'اسم المستخدم بأحرف إنجليزية وأرقام فقط.',wCreated:'تم إنشاء حساب العامل',shareP:'أرسل للعامل الرابط مع اسم المستخدم وكلمة المرور التي أنشأتها له.',cfgMissing:'لم تُدخل إعدادات Firebase بعد. اقرأ ملف الخطوات.'},
+en:{signIn:'Sign in',signOut:'Sign out',idLbl:'Username',secret:'Password',wrongLogin:'Wrong login details.',uname:'Username (English letters)',pinL:'Password (at least 6 characters)',weakPin:'Password too short (at least 6).',userTaken:'Username already used.',userBad:'Username: English letters and numbers only.',wCreated:'Worker account created',shareP:'Send the worker the link, plus the username and password you created for them.',cfgMissing:'Firebase settings are not filled in yet. Read the setup file.'},
+hi:{signIn:'लॉग इन',signOut:'लॉग आउट',idLbl:'यूज़रनेम',secret:'पासवर्ड',wrongLogin:'लॉग इन जानकारी गलत है।',uname:'यूज़रनेम (अंग्रेज़ी में)',pinL:'पासवर्ड (कम से कम 6 अक्षर या अंक)',weakPin:'पासवर्ड छोटा है (कम से कम 6)।',userTaken:'यूज़रनेम पहले से इस्तेमाल में है।',userBad:'यूज़रनेम में केवल अंग्रेज़ी अक्षर और अंक हों।',wCreated:'कर्मचारी का अकाउंट बन गया',shareP:'कर्मचारी को लिंक, और आपका बनाया यूज़रनेम व पासवर्ड भेजें।'},
+ur:{signIn:'لاگ اِن',signOut:'لاگ آؤٹ',idLbl:'صارف نام',secret:'پاس ورڈ',wrongLogin:'لاگ اِن کی معلومات غلط ہیں۔',uname:'صارف نام (انگریزی میں)',pinL:'پاس ورڈ (کم از کم 6 حروف یا ہندسے)',weakPin:'پاس ورڈ چھوٹا ہے (کم از کم 6)۔',userTaken:'صارف نام پہلے سے استعمال میں ہے۔',userBad:'صارف نام میں صرف انگریزی حروف اور ہندسے ہوں۔',wCreated:'ورکر کا اکاؤنٹ بن گیا',shareP:'ورکر کو لنک، اور آپ کا بنایا ہوا صارف نام اور پاس ورڈ بھیجیں۔'}};
+Object.keys(X).forEach(function(l){Object.assign(D[l],X[l])});
+
+var lang='ar',workers=[],tasks=[],uid='',isMgr=false,meId='',unsub=[],sec=null,auth=null,db=null,view='W';
+function t(k){return (D[lang]&&D[lang][k])||D.en[k]||k}
+function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+function ls(k,v){try{if(v===undefined)return localStorage.getItem(k)||'';localStorage.setItem(k,v)}catch(e){return ''}}
+function ymd(d){return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
+var TODAY=ymd(new Date());
+function toast(m){var e=$('#toast');e.textContent=m;e.style.display='block';clearTimeout(toast.h);toast.h=setTimeout(function(){e.style.display='none'},3500)}
+function fail(){toast(t('saveFail'))}
+function wname(id){var w=workers.find(function(x){return x.id===id});return w?w.name:''}
+function ttl(x){return x.titleKey!=null&&LIB[lang][x.titleKey]?LIB[lang][x.titleKey]:x.title}
+function curMe(){return isMgr?meId:uid}
+function shrink(f){return new Promise(function(res,rej){var im=new Image(),u=URL.createObjectURL(f);im.onload=function(){function mk(m,q){var s=Math.min(1,m/Math.max(im.width,im.height)),c=document.createElement('canvas');c.width=Math.round(im.width*s);c.height=Math.round(im.height*s);c.getContext('2d').drawImage(im,0,0,c.width,c.height);return c.toDataURL('image/jpeg',q)}var d=mk(1000,.7);if(d.length>700000)d=mk(700,.5);URL.revokeObjectURL(u);res(d)};im.onerror=rej;im.src=u})}
+
+function fillLangs(){var s=$('#lang');s.innerHTML='<option value="ar">العربية</option><option value="en">English</option><option value="hi">हिन्दी</option><option value="ur">اردو</option>';s.value=lang}
+function applyLang(){
+  var h=document.documentElement;h.lang=CODE[lang]||'en';h.dir=RTL[lang]?'rtl':'ltr';document.title=t('title');
+  document.querySelectorAll('[data-t]').forEach(function(e){e.textContent=t(e.dataset.t)});
+  document.querySelectorAll('[data-tp]').forEach(function(e){e.placeholder=t(e.dataset.tp)});
+  fillLangs();
+  $('#today').textContent=new Date().toLocaleDateString(CODE[lang]||'en-GB',{weekday:'long',day:'numeric',month:'long'});
+  $('#lib').innerHTML=LIB[lang].map(function(x){return '<option value="'+x+'">'}).join('');
+  renderAll();
+}
+function renderWorkers(){
+  $('#wList').innerHTML=workers.length?workers.map(function(w){return '<span class="chip">'+esc(w.name)+' ('+esc(w.username||'')+')<button data-dw="'+w.id+'" aria-label="x">×</button></span>'}).join(''):'<span class="empty" style="padding:4px 0">'+t('noW')+'</span>';
+  var opts=workers.map(function(w){return '<option value="'+w.id+'">'+esc(w.name)+'</option>'}).join('');
+  var ws=$('#wSel'),cur=ws.value;ws.innerHTML=opts||'<option value="">'+t('addFirst')+'</option>';if(cur)ws.value=cur;
+  var me=$('#me');me.innerHTML='<option value="">'+t('pickMe')+'</option>'+opts;
+  me.value=workers.some(function(w){return w.id===meId})?meId:'';
+}
+function taskHTML(x){
+  var s=x.status||'todo';
+  var h='<div class="task '+s+'"><div class="t">'+esc(ttl(x))+'</div><div class="car">'+esc(x.car)+'</div>';
+  h+='<div style="margin-top:6px"><span class="badge '+s+'">'+t(s)+'</span>'+(x.date<TODAY&&s!=='done'?' <span class="badge problem">'+t('late')+'</span>':'')+'</div>';
+  if(x.note)h+='<div class="note">'+esc(x.note)+'</div>';
+  if(x.img)h+='<img class="pic" src="'+x.img+'" alt="'+t('pic')+'">';
+  if(x.problemNote)h+='<div class="note p">'+t('problemL')+esc(x.problemNote)+'</div>';
+  return h;
+}
+function renderManager(){
+  if(!isMgr)return;
+  var d=$('#fDate').value||TODAY;
+  var list=tasks.filter(function(x){return x.date===d}).sort(function(a,b){return (a.createdAt||0)-(b.createdAt||0)});
+  var c={todo:0,doing:0,done:0,problem:0};list.forEach(function(x){c[x.status||'todo']++});
+  $('#sum').innerHTML=['todo','doing','done','problem'].map(function(k){return '<div><b>'+c[k]+'</b>'+t(k)+'</div>'}).join('');
+  if(!list.length){$('#mTasks').innerHTML='<div class="empty">'+t('none')+'</div>';return}
+  var g={};list.forEach(function(x){(g[x.workerId]=g[x.workerId]||[]).push(x)});
+  $('#mTasks').innerHTML=Object.keys(g).map(function(id){
+    return '<div class="who">'+esc(wname(id)||g[id][0].workerName||t('noWorker'))+'</div>'+g[id].map(function(x){return taskHTML(x)+'<button class="del" data-dt="'+x.id+'">'+t('delT')+'</button></div>'}).join('');
+  }).join('');
+}
+function renderWorker(){
+  var box=$('#wTasks'),m=curMe();
+  if(!m){box.innerHTML='<div class="empty">'+t('pickMeMsg')+'</div>';return}
+  var list=tasks.filter(function(x){return x.workerId===m&&(x.date===TODAY||(x.date<TODAY&&x.status!=='done'))}).sort(function(a,b){return (a.date>b.date)-(a.date<b.date)||(a.createdAt||0)-(b.createdAt||0)});
+  if(!list.length){box.innerHTML='<div class="empty">'+t('noMine')+'</div>';return}
+  box.innerHTML=list.map(function(x){
+    var s=x.status||'todo',a='',b='';
+    if(x.date<TODAY)a='<div class="note p" style="margin-bottom:8px">'+t('carry')+' '+esc(x.date)+'</div>';
+    if(s==='todo'||s==='problem')b='<button class="go" data-st="doing" data-id="'+x.id+'">'+t('start')+'</button>';
+    if(s==='doing')b='<button class="ok" data-st="done" data-id="'+x.id+'">'+t('finish')+'</button>';
+    if(s!=='done')b+='<button class="bad" data-st="problem" data-id="'+x.id+'">'+t('prob')+'</button>';
+    else b='<button data-st="doing" data-id="'+x.id+'">'+t('undo')+'</button>';
+    return a+taskHTML(x)+'<div class="acts">'+b+'</div></div>';
+  }).join('');
+}
+function renderAll(){renderWorkers();renderManager();renderWorker()}
+function setView(v){view=v;$('#vM').hidden=v!=='M'||!isMgr;$('#vW').hidden=v!=='W';$('#tabM').setAttribute('aria-selected',v==='M');$('#tabW').setAttribute('aria-selected',v==='W')}
+function showLogin(){$('#login').hidden=false;$('#app').hidden=true;$('#outB').hidden=true}
+function showApp(){$('#login').hidden=true;$('#app').hidden=false;$('#outB').hidden=false;$('#tabs').hidden=!isMgr;$('#meCard').hidden=!isMgr;setView(isMgr?'M':'W')}
+function emailOf(id){id=id.trim().toLowerCase();return id.indexOf('@')>0?id:id.replace(/[^a-z0-9._-]/g,'')+'@workshop.local'}
+
+function boot(){
+  var app=initializeApp(firebaseConfig);auth=getAuth(app);db=initializeFirestore(app,{localCache:persistentLocalCache()});
+  var errf=function(){toast(t('saveFail'))};
+  var mapDocs=function(s){return s.docs.map(function(d){var o=d.data();o.id=d.id;return o})};
+  $('#loginB').onclick=function(){var id=$('#lid').value,pw=$('#lpw').value;if(!id||!pw)return;$('#lerr').hidden=true;
+    signInWithEmailAndPassword(auth,emailOf(id),pw).catch(function(){$('#lerr').textContent=t('wrongLogin');$('#lerr').hidden=false})};
+  $('#outB').onclick=function(){signOut(auth)};
+  $('#addW').onclick=function(){
+    var n=$('#wName').value.trim(),un=$('#wUser').value.trim().toLowerCase(),pin=$('#wPin').value.trim();
+    if(!n||!un||!pin)return;
+    if(!/^[a-z0-9._-]{2,20}$/.test(un)){toast(t('userBad'));return}
+    if(pin.length<6){toast(t('weakPin'));return}
+    if(!sec)sec=initializeApp(firebaseConfig,'sec');var sa=getAuth(sec);
+    createUserWithEmailAndPassword(sa,un+'@workshop.local',pin).then(function(c){return setDoc(doc(db,'workers',c.user.uid),{name:n,username:un,createdAt:Date.now()}).then(function(){return signOut(sa)})})
+    .then(function(){['#wName','#wUser','#wPin'].forEach(function(s){$(s).value=''});toast(t('wCreated'))})
+    .catch(function(e){var c=e&&e.code;toast(c==='auth/email-already-in-use'?t('userTaken'):c==='auth/weak-password'?t('weakPin'):t('saveFail'))})};
+  $('#addT').onclick=function(){
+    var car=$('#car').value.trim(),title=$('#title').value.trim(),w=$('#wSel').value,date=$('#tDate').value;
+    if(!car||!title||!w||!date){toast(t('fillAll'));return}
+    var k=LIB[lang].indexOf(title);if(k<0)k=LIB.en.indexOf(title);
+    var f=$('#tImg').files[0],btn=$('#addT');btn.disabled=true;
+    (f?shrink(f):Promise.resolve('')).then(function(img){
+      var o={car:car,title:title,titleKey:k>=0?k:null,workerId:w,workerName:wname(w),date:date,note:$('#tNote').value.trim(),status:'todo',createdAt:Date.now()};
+      if(img)o.img=img;return addDoc(collection(db,'tasks'),o)
+    }).then(function(){$('#title').value='';$('#tNote').value='';$('#tImg').value='';toast(t('added'))})
+    .catch(function(){toast(t('imgFail'))}).then(function(){btn.disabled=false})};
+  document.addEventListener('click',function(e){
+    var b=e.target.closest('button');if(!b)return;
+    if(b.dataset.dw&&confirm(t('confW')))deleteDoc(doc(db,'workers',b.dataset.dw)).catch(fail);
+    if(b.dataset.dt&&confirm(t('confT')))deleteDoc(doc(db,'tasks',b.dataset.dt)).catch(fail);
+    if(b.dataset.st){
+      var st=b.dataset.st,upd={status:st};
+      if(st==='problem'){var p=prompt(t('probQ'));if(p===null)return;upd.problemNote=p.trim()}else upd.problemNote='';
+      updateDoc(doc(db,'tasks',b.dataset.id),upd).catch(fail)}
+  });
+  $('#shareB').onclick=function(){var u=location.origin+location.pathname;var cp=function(){if(navigator.clipboard)navigator.clipboard.writeText(u).then(function(){toast(t('copied'))}).catch(function(){toast(u)});else toast(u)};if(navigator.share)navigator.share({title:t('title'),url:u}).catch(cp);else cp()};
+  onAuthStateChanged(auth,function(u){
+    unsub.forEach(function(f){f()});unsub=[];workers=[];tasks=[];
+    if(!u){uid='';isMgr=false;showLogin();renderAll();return}
+    uid=u.uid;isMgr=(u.email||'').toLowerCase()===String(managerEmail).toLowerCase();showApp();
+    if(isMgr){
+      unsub.push(onSnapshot(collection(db,'workers'),function(s){workers=mapDocs(s).sort(function(a,b){return (a.createdAt||0)-(b.createdAt||0)});renderAll()},errf));
+      unsub.push(onSnapshot(collection(db,'tasks'),function(s){tasks=mapDocs(s);renderAll()},errf));
+    }else{
+      unsub.push(onSnapshot(doc(db,'workers',uid),function(d){workers=d.exists()?[Object.assign({id:d.id},d.data())]:[];renderAll()},errf));
+      unsub.push(onSnapshot(query(collection(db,'tasks'),where('workerId','==',uid)),function(s){tasks=mapDocs(s);renderAll()},errf));
+    }
+  });
+}
+$('#tDate').value=TODAY;$('#fDate').value=TODAY;
+$('#tabM').onclick=function(){setView('M')};$('#tabW').onclick=function(){setView('W')};
+$('#fDate').onchange=renderManager;
+$('#me').onchange=function(){meId=this.value;renderWorker()};
+var sl=ls('lang');lang=['ar','en','hi','ur'].indexOf(sl)>=0?sl:'ar';
+$('#lang').onchange=function(){lang=this.value;ls('lang',lang);applyLang()};
+applyLang();
+if(String(firebaseConfig.apiKey).indexOf('PASTE')>=0){$('#msg').hidden=false;$('#msg').textContent=t('cfgMissing')}
+else{showLogin();boot()}
+</script>
+</body>
+</html>
